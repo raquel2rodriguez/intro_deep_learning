@@ -1,17 +1,20 @@
-# Use an official Python runtime as a parent image
-FROM jupyter/base-notebook
+FROM python:3.8-bullseye
 
-# Set the working directory in the container to /app
-WORKDIR /app
+# Install dependencies
+WORKDIR /build
+COPY requirements.txt /build/requirements.txt
+RUN pip install --upgrade pip \
+    && pip install -r initial-requirements.txt \
+    && pip install tensorflow==2.9.0
 
-# Add the current directory contents into the container at /app
-ADD . /app
+# Configurable ENV variables
+ENV PORT=8888
+ENV DIR=/app 
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+WORKDIR ${DIR}
 
-# Make port 8888 available to the world outside this container
-EXPOSE 8888
+COPY . ${DIR}
 
-# Run app.py when the container launches
-CMD ["jupyter", "notebook", "--NotebookApp.token=''", "--NotebookApp.password=''", "--ip='*'", "--port=8888", "--no-browser", "--allow-root"]
+COPY entrypoint.sh /build/entrypoint.sh
+RUN chmod +x /build/entrypoint.sh
+ENTRYPOINT /build/entrypoint.sh --port=${PORT}

@@ -1,0 +1,10 @@
+numpy
+matplotlib
+opencv_python
+pandas
+Pillow
+scikit_learn
+torch
+sentence_transformers
+tqdm
+jupyter
