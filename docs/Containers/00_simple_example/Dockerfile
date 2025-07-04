@@ -17,4 +17,4 @@ COPY app_sample .
 EXPOSE 8000
 
 # Command to run the server
-CMD ["python", "app_sample/main.py"]
+CMD ["python", "main.py"]

@@ -29,9 +29,3 @@ keras = [
     "tensorflow>=2.19.0",
     "tf-keras-vis>=0.8.7",
 ]
-
-[tool.uv.workspace]
-members = [
-    "docs/Containers/01_simple_uv_example",
-    "hackathon/pokedex",
-]
